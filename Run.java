@@ -47,7 +47,7 @@ public class Run{
         }
     }
 
-    //Helper functiono for invalid user inputs
+    //Helper function for invalid user inputs
     public static void invalidInput(String invalidString, String option1, String option2){
         Scanner sc = new Scanner(System.in);
         while (!invalidString.equals(option1) && !invalidString.equals(option2)){
