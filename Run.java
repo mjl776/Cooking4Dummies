@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Run{
     public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
-		System.out.println("Welcome to Cooking4Dummies! Type 'c' to create a recipe and 'r' to retrieve a recipe.");
+        System.out.println("Welcome to Cooking4Dummies! Type 'c' to create a recipe and 'r' to retrieve a recipe.");
         String ans = sc.nextLine().toLowerCase();
 
         //Invalid input
