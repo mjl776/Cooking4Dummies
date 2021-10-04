@@ -8,7 +8,7 @@ public class Run{
         String ans = sc.nextLine().toLowerCase();
 
         //Invalid input
-        invalidInput(ans, "c", "r");
+        ans = invalidInput(ans, "c", "r");
 
         //Create a recipe
         if (ans.equals("c")) {
@@ -20,7 +20,7 @@ public class Run{
             String recipeans = sc.nextLine().toLowerCase();
 
             //Invalid input
-            invalidInput(recipeans, "s", "b");
+            recipeans = invalidInput(recipeans, "s", "b");
 
             //Search recipe by name
             if (recipeans.equals("s")){
@@ -34,7 +34,7 @@ public class Run{
             String readans = sc.nextLine().toLowerCase();
             
             //Invalid input
-            invalidInput(readans, "a", "s");
+            readans = invalidInput(readans, "a", "s");
             
             //Read recipe all at once
             if (readans.equals("a")){
@@ -48,12 +48,13 @@ public class Run{
     }
 
     //Helper function for invalid user inputs
-    public static void invalidInput(String invalidString, String option1, String option2){
+    public static String invalidInput(String invalidString, String option1, String option2){
         Scanner sc = new Scanner(System.in);
         while (!invalidString.equals(option1) && !invalidString.equals(option2)){
             System.out.println("Please enter a valid input.");
             String invalidString2 = sc.nextLine().toLowerCase();
             invalidString = invalidString2;
         }
+        return invalidString;
     }
 }
