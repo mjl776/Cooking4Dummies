@@ -1,7 +1,9 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.File; 
+import java.io.FileWriter;   
+import java.io.File;  
+import java.io.*;  
 
 public class Run{
     public static void main(String[] args) throws IOException {
@@ -10,14 +12,49 @@ public class Run{
         System.out.println("You can type 'x' anytime to exit.");
         String ans = sc.nextLine().toLowerCase();
 
+
+        // Read file to get all recipe names
         ArrayList<String> recipe_names = new ArrayList<String>();
+
+        try {
+            File recipenames = new File("RecipeNames.txt");
+            Scanner scanner = new Scanner(recipenames);
+            while (scanner.hasNextLine()) {
+              String recipe = scanner.nextLine();
+              recipe_names.add(recipe);
+            }
+            scanner.close();
+          } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
+
         //Invalid input
         ans = invalidInput(ans, "c", "r", "('c' to create or 'r' to retrieve)");
 
         //Create a recipe
         if (ans.equals("c")) {
             System.out.println("Let's create a recipe for you...");
-            createRecipe();
+            String recipe = createRecipe();
+            recipe_names.add(recipe);
+
+            // Write this to the file for RecipeNames
+            FileWriter recipeWriter = new FileWriter("RecipeNames.txt");
+            try {
+                recipeWriter.write("Names: ");
+                recipeWriter.write("\n");
+                for (int i = 0; i < recipe_names.size(); i++) {
+                    recipeWriter.write(recipe_names.get(i));
+                    recipeWriter.write("\n");
+                }
+                recipeWriter.close();
+            } catch (IOException e) {
+                System.out.println("An error occurred.");
+                e.printStackTrace();
+            }
+
+
         }
 
         //Retrieve a recipe
@@ -74,13 +111,12 @@ public class Run{
     }
 
     // Create a recipe function
-    public static void createRecipe(){
+    public static String createRecipe() throws IOException {
         Scanner sce = new Scanner(System.in);
         boolean recipe_not_finished = true;
+        Recipe recipe = new Recipe();
 
         while(recipe_not_finished) {
-            Recipe recipe = new Recipe();
-
             // Recipe Name
             System.out.println("Please enter a name for the recipe.");
             recipe.setName(sce.nextLine());
@@ -138,9 +174,50 @@ public class Run{
                     }
                 }
             }
-            System.out.println(recipe.instructions.get(0));
+
+
             sce.close();
             break;
         }
+
+        System.out.println(recipe.instructions.get(0));
+
+        // write to file
+        try {
+            FileWriter recipeWriter = new FileWriter(recipe.name + ".txt");
+
+            // Recipe name
+            recipeWriter.write("Name:");
+            recipeWriter.write("\n");
+            recipeWriter.write(recipe.name);
+            recipeWriter.write("\n");
+
+            // Description
+            recipeWriter.write("Description:");
+            recipeWriter.write("\n");
+            recipeWriter.write(recipe.description);
+            recipeWriter.write("\n");
+
+            recipeWriter.write("Ingredient List:");
+            recipeWriter.write("\n");
+            for (int i = 0; i < recipe.ingredient_list.size(); i++) {
+                recipeWriter.write(recipe.ingredient_list.get(i));
+                recipeWriter.write("\n");
+            }
+
+            // Instructions 
+            recipeWriter.write("Instructions:");
+            recipeWriter.write("\n");
+            for (int i = 0; i < recipe.instructions.size(); i++){
+                recipeWriter.write("Step " + i + " "+ recipe.instructions.get(i));
+                recipeWriter.write("\n");
+            }
+            recipeWriter.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+        return recipe.name; 
+
     }
 }
