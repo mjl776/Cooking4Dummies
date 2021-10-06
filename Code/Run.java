@@ -4,6 +4,7 @@ import java.util.Scanner;
 import java.io.FileWriter;   
 import java.io.File;  
 import java.io.*;  
+import java.lang.String;
 
 public class Run{
     public static void main(String[] args) throws IOException {
@@ -66,10 +67,29 @@ public class Run{
             //Search recipe by name
             if (recipeans.equals("s")){
                 System.out.println("Searching a recipe by name...");
+                String recipe = byName(recipe_names);
+                if (recipe == null) {
+                    System.out.println("No recipe matches your search :(");
+                } else {
+                    // remember to make a toString method for the recipe in your Recipe class
+                    System.out.println("Here is your recipe: \n" + recipe.toString());
+                }
             }
+
+
             //Browse all recipes
             else if (recipeans.equals("b")){
                 System.out.println("Browse all recipes");
+                String recipe = browseAll(recipe_names);
+                if (recipe == null) {
+                    System.out.println("That number is not in our catalogue. ");
+                } else {
+                    // remember to make a toString method for the recipe in your Recipe class
+                    System.out.println("Here is your recipe: \n" + recipe.toString());
+                }
+                
+            }
+
             }
             System.out.println("Type 'a' to read a recipe all at once or 's' to read through the recipe step-by-step.");
             String readans = sc.nextLine().toLowerCase();
@@ -85,9 +105,8 @@ public class Run{
             else if (readans.equals("s")){
                 System.out.println("Reading a recipe step-by-step...");
             }
+            sc.close();
         }
-        sc.close();
-    }
 
     // ************************************** //
     // ********** OTHER FUNCTIONS *********** //
@@ -218,4 +237,29 @@ public class Run{
         return recipe.name; 
 
     }
+
+    public static String byName(ArrayList<String> recipes) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("search for a recipe by name :) : ");
+        String input = sc.nextLine().toLowerCase();
+        for (String recipe : recipes) {
+            if (recipe.toLowerCase().contains(input)) {
+                return recipe;
+            } 
+        }
+        return null;
+    }
+
+    public static String browseAll(ArrayList<String> recipes) {
+        System.out.println("Here are all of our recipes. Please select by number. :)");
+        for (int i = 0; i < recipes.size(); i++) {
+            System.out.println(i + " ." + recipes.get(i));
+        }
+        Scanner sc = new Scanner(System.in);
+        System.out.println("select your recipe: ");
+        int input = sc.nextInt();
+        return recipes.get(input);
+        
+    }
+
 }
