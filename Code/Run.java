@@ -83,10 +83,16 @@ public class Run{
 
             // Recipe Name
             System.out.println("Please enter a name for the recipe.");
+            if (sce.nextLine().equals("x")){
+                System.exit(0);
+            }
             recipe.setName(sce.nextLine());
 
             // Recipe Description
             System.out.println("Please enter a description.");
+            if (sce.nextLine().equals("x")){
+                System.exit(0);
+            }
             recipe.setDescription(sce.nextLine());
 
             // Recipe ingredients
