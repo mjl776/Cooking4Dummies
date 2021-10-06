@@ -6,12 +6,11 @@ import java.io.File;
 public class Run{
     public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Welcome to Cooking4Dummies! Type 'c' to create a recipe and 'r' to retrieve a recipe.");
-        // System.out.println("You can type 'x' anytime to exit.");
+        System.out.println("Welcome to Cooking4Dummies! Type 'c' to create a recipe or 'r' to retrieve a recipe.");
+        System.out.println("You can type 'x' anytime to exit.");
         String ans = sc.nextLine().toLowerCase();
 
         ArrayList<String> recipe_names = new ArrayList<String>();
-
         //Invalid input
         ans = invalidInput(ans, "c", "r", "('c' to create or 'r' to retrieve)");
 
@@ -19,7 +18,7 @@ public class Run{
         if (ans.equals("c")) {
             System.out.println("Let's create a recipe for you...");
             createRecipe();
-            }
+        }
 
         //Retrieve a recipe
         else if (ans.equals("r")){
@@ -52,14 +51,23 @@ public class Run{
                 System.out.println("Reading a recipe step-by-step...");
             }
         }
+        sc.close();
     }
+
+    // ************************************** //
+    // ********** OTHER FUNCTIONS *********** //
+    // ************************************** //
 
     // Helper function for invalid user inputs
     public static String invalidInput(String invalidString, String option1, String option2, String instructions){
-        Scanner sc = new Scanner(System.in);
+        Scanner scf = new Scanner(System.in);
         while (!invalidString.equals(option1) && !invalidString.equals(option2)){
+            if (invalidString.equals("x")){
+                System.out.println("Exiting program...");
+                System.exit(0);
+            }
             System.out.println("Please enter a valid input" + instructions);
-            String invalidString2 = sc.nextLine().toLowerCase();
+            String invalidString2 = scf.nextLine().toLowerCase();
             invalidString = invalidString2;
         }
         return invalidString;
@@ -67,20 +75,19 @@ public class Run{
 
     // Create a recipe function
     public static void createRecipe(){
-        Scanner sc = new Scanner(System.in);
+        Scanner sce = new Scanner(System.in);
         boolean recipe_not_finished = true;
 
         while(recipe_not_finished) {
-        
             Recipe recipe = new Recipe();
 
             // Recipe Name
             System.out.println("Please enter a name for the recipe.");
-            recipe.setName(sc.nextLine());
+            recipe.setName(sce.nextLine());
 
             // Recipe Description
             System.out.println("Please enter a description.");
-            recipe.setDescription(sc.nextLine());
+            recipe.setDescription(sce.nextLine());
 
             // Recipe ingredients
             boolean ingredient_list_not_done = true; 
@@ -88,19 +95,18 @@ public class Run{
             recipe.setIngredient_List(ingredient_list);
             
             while (ingredient_list_not_done) {
-
                 String command = "";
                 if (recipe.ingredient_list.size()==0) {
                     System.out.println("What ingredients would you like to add?");
-                    String ingredient = sc.nextLine();
+                    String ingredient = sce.nextLine();
                     recipe.ingredient_list.add(ingredient);
                 }
                 else {
                     System.out.println("Would you like to add more ingredients? Type 'y' for yes and 'n' for no.");
-                    command = invalidInput(sc.nextLine(), "y", "n", "('y' for yes or 'n' for no)");
+                    command = invalidInput(sce.nextLine(), "y", "n", "('y' for yes or 'n' for no)");
                     if (command.equals("y")) {
                         System.out.println("What ingredients would you like to add ");
-                        String ingredient = sc.nextLine();
+                        String ingredient = sce.nextLine();
                         recipe.ingredient_list.add(ingredient);
                     }
                     else { 
@@ -116,15 +122,15 @@ public class Run{
                 String command = "";
                 if (recipe.instructions.size()==0) {
                     System.out.println("What is the first step in the instructions?");
-                    String instruction = sc.nextLine();
+                    String instruction = sce.nextLine();
                     recipe.instructions.add(instruction);
                 }
                 else {
                     System.out.println("Would you like to add more steps? Type 'y' for yes and 'n' for no.");
-                    command = invalidInput(sc.nextLine(), "y", "n", "('y' for yes or 'n' for no)");
+                    command = invalidInput(sce.nextLine(), "y", "n", "('y' for yes or 'n' for no)");
                     if (command.equals("y")) {
                         System.out.println("What is the next step?");
-                        String instruction = sc.nextLine();
+                        String instruction = sce.nextLine();
                         recipe.instructions.add(instruction);
                     }
                     else {
@@ -133,7 +139,8 @@ public class Run{
                 }
             }
             System.out.println(recipe.instructions.get(0));
-            break; 
+            sce.close();
+            break;
         }
     }
 }
