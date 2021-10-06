@@ -5,7 +5,7 @@ public class Recipe {
     protected String description;
     protected ArrayList<String> ingredient_list;
     protected ArrayList<String> instructions;
-
+    
     public Recipe() {
         this.name = ""; 
         this.description = "";
@@ -42,6 +42,14 @@ public class Recipe {
 
     public void setIngredient_List (ArrayList<String> newIngridentList) {
         this.ingredient_list = newIngridentList;
+    }
+
+    public ArrayList<String> getInstructions() {
+        return instructions;
+    }
+
+    public void setInsructions(ArrayList<String> newInstructions) {
+        this.instructions = newInstructions;
     }
     
 }
