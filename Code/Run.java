@@ -79,7 +79,6 @@ public class Run{
         boolean recipe_not_finished = true;
 
         while(recipe_not_finished) {
-        
             Recipe recipe = new Recipe();
 
             // Recipe Name
@@ -96,7 +95,6 @@ public class Run{
             recipe.setIngredient_List(ingredient_list);
             
             while (ingredient_list_not_done) {
-
                 String command = "";
                 if (recipe.ingredient_list.size()==0) {
                     System.out.println("What ingredients would you like to add?");
