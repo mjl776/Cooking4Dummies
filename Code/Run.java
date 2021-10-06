@@ -6,7 +6,7 @@ import java.io.File;
 public class Run{
     public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Welcome to Cooking4Dummies! Type 'c' to create a recipe and 'r' to retrieve a recipe.");
+        System.out.println("Welcome to Cooking4Dummies! Type 'c' to create a recipe or 'r' to retrieve a recipe.");
         // System.out.println("You can type 'x' anytime to exit.");
         String ans = sc.nextLine().toLowerCase();
 
@@ -52,7 +52,12 @@ public class Run{
                 System.out.println("Reading a recipe step-by-step...");
             }
         }
+        sc.close();
     }
+
+    // ************************************** //
+    // ********** OTHER FUNCTIONS *********** //
+    // ************************************** //
 
     // Helper function for invalid user inputs
     public static String invalidInput(String invalidString, String option1, String option2, String instructions){
@@ -62,6 +67,7 @@ public class Run{
             String invalidString2 = sc.nextLine().toLowerCase();
             invalidString = invalidString2;
         }
+        sc.close();
         return invalidString;
     }
 
@@ -133,6 +139,7 @@ public class Run{
                 }
             }
             System.out.println(recipe.instructions.get(0));
+            sc.close();
             break; 
         }
     }
