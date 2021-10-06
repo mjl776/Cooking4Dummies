@@ -42,8 +42,6 @@ public class Run{
             // Write this to the file for RecipeNames
             FileWriter recipeWriter = new FileWriter("RecipeNames.txt");
             try {
-                recipeWriter.write("Names: ");
-                recipeWriter.write("\n");
                 for (int i = 0; i < recipe_names.size(); i++) {
                     recipeWriter.write(recipe_names.get(i));
                     recipeWriter.write("\n");
