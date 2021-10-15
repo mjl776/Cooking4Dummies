@@ -2,6 +2,8 @@ import java.util.*;
 
 public class Recipe {
     protected String name;
+    protected String favorite;
+    protected String cat;
     protected String description;
     protected ArrayList<String> ingredient_list;
     protected ArrayList<String> instructions;
@@ -9,13 +11,17 @@ public class Recipe {
     public Recipe() {
         this.name = ""; 
         this.description = "";
+        this.favorite = "";
+        this.cat = "";
         this.ingredient_list = null; 
         this.instructions = null;
     }
 
-    public Recipe(String name, String description,  ArrayList<String> ingredient_list, ArrayList<String> instructions) {
+    public Recipe(String name, String favorite, String cat, String description,  ArrayList<String> ingredient_list, ArrayList<String> instructions) {
         this.name = name; 
         this.description = description;
+        this.favorite = favorite;
+        this.cat = cat;
         this.ingredient_list = ingredient_list; 
         this.instructions = instructions;
     }
@@ -26,6 +32,22 @@ public class Recipe {
 
     public void setName(String newName) {
         this.name = newName;
+    }
+
+    public String getFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite (String newFavorite) {
+        this.favorite = newFavorite;
+    }
+
+    public String getCat() {
+        return cat;
+    }
+
+    public void setCat(String newCat) {
+        this.cat = newCat;
     }
     
     public String getDescription() {
