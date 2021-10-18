@@ -12,8 +12,16 @@ import java.lang.String;
 public class Run{
     public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Welcome to Cooking4Dummies! Type 'c' to create a recipe or 'r' to retrieve a recipe.");
-        System.out.println("You can type 'x' anytime to exit.");
+        System.out.println("*************************************************************************************************");
+        System.out.println("***                                Welcome to Cooking4Dummies!                                ***");
+        System.out.println("***-------------------------------------------------------------------------------------------***");
+        System.out.println("***                                       INSTRUCTIONS                                        ***");
+        System.out.println("***                                                                                           ***");
+        System.out.println("***                  Type 'c' to create a recipe or 'r' to retrieve a recipe.                 ***");
+        System.out.println("***                                                                                           ***");
+        System.out.println("***                            (You can type 'x' anytime to exit.)                            ***");
+        System.out.println("*************************************************************************************************");
+        System.out.printf(" >> Type your input here: ");
         String ans = sc.nextLine().toLowerCase();
 
         // blank recipe
@@ -31,7 +39,12 @@ public class Run{
             }
             scanner.close();
           } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
+            System.out.println("*************************************************************************************************");
+            System.out.println("***                                           ERROR!                                          ***");
+            System.out.println("***                                                                                           ***");
+            System.out.println("***                                   Something went wrong.                                   ***");
+            System.out.println("***                                                                                           ***");
+            System.out.println("*************************************************************************************************");
             e.printStackTrace();
         }
 
@@ -41,9 +54,12 @@ public class Run{
 
         //Create a recipe
         if (ans.equals("c")) {
-            System.out.println("Let's create a recipe for you...");
+            System.out.println("*************************************************************************************************");
+            System.out.println("***                              Let's create a recipe for you...                             ***");
+            System.out.println("***-------------------------------------------------------------------------------------------***");
             recipe = createRecipe();
             recipe_names.add(recipe);
+
 
             // Write this to the file for RecipeNames
             FileWriter recipeWriter = new FileWriter("RecipeNames.txt");
@@ -54,29 +70,58 @@ public class Run{
                 }
                 recipeWriter.close();
             } catch (IOException e) {
-                System.out.println("An error occurred.");
+                System.out.println("*************************************************************************************************");
+                System.out.println("***                                           ERROR!                                          ***");
+                System.out.println("***                                                                                           ***");
+                System.out.println("***                                   Something went wrong.                                   ***");
+                System.out.println("***                                                                                           ***");
+                System.out.println("*************************************************************************************************");
                 e.printStackTrace();
             }
-
+            System.out.println("*************************************************************************************************");
+            System.out.println("***                                          EXITING!                                         ***");
+            System.out.println("***                                                                                           ***");
+            System.out.println("***      Please run the program again to either create another recipe, or browse recipes.     ***");
+            System.out.println("***                                                                                           ***");
+            System.out.println("*************************************************************************************************");
+            System.exit(0);
 
         }
 
         //Retrieve a recipe
         else if (ans.equals("r")){
-            System.out.println("Type 's' to search by name, 'b' to browse all recipes, and 'f' to browse by favorite.");
+            System.out.println("*************************************************************************************************");
+            System.out.println("***                                       INSTRUCTIONS                                        ***");
+            System.out.println("***                                                                                           ***");
+            System.out.println("***   Type 's' to search by name, 'b' to browse all recipes, and 'f' to browse by favorites.  ***");
+            System.out.println("***                                                                                           ***");
+            System.out.println("*************************************************************************************************");
+            System.out.printf(" >> Type your input here: ");
             String recipeans = sc.nextLine().toLowerCase();
             //Invalid input
-            recipeans = invalidInput(recipeans, "s", "b", "f", "('s' to search or 'b' to browse or 'f' by favorite)");
+            recipeans = invalidInput(recipeans, "s", "b", "f", "('s' to search or 'b' to browse all or 'f' to browse by favorites)");
 
             //Search recipe by name
             if (recipeans.equals("s")){
-                System.out.println("Searching a recipe by name...");
+                System.out.println("*************************************************************************************************");
+                System.out.println("***                         Searching a recipe by name...                                     ***");
+                System.out.println("***-------------------------------------------------------------------------------------------***");
+                System.out.println();
                 recipe = byName(recipe_names);
                 if (recipe == null) {
-                    System.out.println("No recipe matches your search :(");
+                    System.out.println("*************************************************************************************************");
+                    System.out.println("***                              No recipe matches your search.                               ***");
+                    System.out.println("***                                          EXITING!                                         ***");
+                    System.out.println("***                                                                                           ***");
+                    System.out.println("***      Please run the program again to either create a recipe, or browse another recipe.    ***");
+                    System.out.println("***                                                                                           ***");
+                    System.out.println("*************************************************************************************************");
+                    System.exit(0);
                 } else {
-                    
-                    System.out.println("Here is your recipe: \n" + recipe.toString());
+                    System.out.println();
+                    System.out.println("*************************************************************************************************");
+                    System.out.println("                              Here is your recipe: " + recipe.toString());
+                    System.out.println("*************************************************************************************************");
                 }
             }
 
@@ -106,7 +151,6 @@ public class Run{
             }
             //Browse all recipes
             else if (recipeans.equals("b")){
-                System.out.println("Browse all recipes");
                 recipe = browseAll(recipe_names);
                 if (recipe == null) {
                     System.out.println("That number is not in our catalogue. ");
@@ -116,19 +160,12 @@ public class Run{
                 }
 
             }
-            //Browse by cat
-            // else if (recipeans.equals("c")){
-                
-         //   }
-
-            //Browse by fav
-            else if (recipeans.equals("f")){
 
             }
-
-
-            }
-            System.out.println("Type 'a' to read a recipe all at once or 's' to read through the recipe step-by-step.");
+            System.out.println("***   Type 'a' to read a recipe all at once or 's' to read through the recipe step-by-step.   ***");
+            System.out.println("***-------------------------------------------------------------------------------------------***");
+            System.out.println();
+            System.out.printf("Type your input here: ");
             String readans = sc.nextLine().toLowerCase();
             
             //Invalid input
@@ -136,14 +173,18 @@ public class Run{
             
             //Read recipe all at once
             if (readans.equals("a")){
-                System.out.println("Reading a recipe all at once...");
-                
+                System.out.println();
+                System.out.println("*************************************************************************************************");
+                System.out.println("***                     Reading a recipe all at once...                                       ***");
+                System.out.println("***-------------------------------------------------------------------------------------------***");
                 wholeRecipePrint(recipe.toString() + ".txt");
             }
             //Read recipe step-by-step
             else if (readans.equals("s")){
-                System.out.println("Reading a recipe step-by-step...");
-
+                System.out.println();
+                System.out.println("*************************************************************************************************");
+                System.out.println("***                         Reading a recipe step-by-step...                                 ***");
+                System.out.println("***-------------------------------------------------------------------------------------------***");
                 stepRecipePrint(recipe.toString() + ".txt");
             }
             sc.close();
@@ -158,10 +199,21 @@ public class Run{
         Scanner scf = new Scanner(System.in);
         while (!invalidString.equals(option1) && !invalidString.equals(option2) && !invalidString.equals(option3) && !invalidString.equals("")){
             if (invalidString.equals("x")){
-                System.out.println("Exiting program...");
+                System.out.println("*************************************************************************************************");
+                System.out.println("***                                          EXITING!                                         ***");
+                System.out.println("***                                                                                           ***");
+                System.out.println("***         Please run the program again to either create a recipe, or browse recipes.        ***");
+                System.out.println("***                                                                                           ***");
+                System.out.println("*************************************************************************************************");
                 System.exit(0);
             }
-            System.out.println("Please enter a valid input" + instructions);
+            System.out.println("*************************************************************************************************");
+            System.out.println("***                                           ERROR!                                          ***");
+            System.out.println("***                                                                                           ***");
+            System.out.println("---> Please enter a valid input" + instructions);
+            System.out.println("***                                                                                           ***");
+            System.out.println("*************************************************************************************************");
+            System.out.printf(" >> Type your input here: ");
             String invalidString2 = scf.nextLine().toLowerCase();
             invalidString = invalidString2;
         }
@@ -176,28 +228,50 @@ public class Run{
 
         while(recipe_not_finished) {
             // Recipe Name
-            System.out.println("Please enter a name for the recipe.");
-            if (sce.nextLine().equals("x")){
+            System.out.println("***                                       INSTRUCTIONS                                        ***");
+            System.out.println("***                                                                                           ***");
+            System.out.println("***                            Please enter a name for the recipe.                            ***");
+            System.out.println("***                                                                                           ***");
+            System.out.println("*************************************************************************************************");
+            System.out.printf(" >> Type your input here: ");
+            String nameAns = sce.nextLine();
+            if (nameAns.equals("x")){
                 System.exit(0);
             }
-            recipe.setName(sce.nextLine());
+            recipe.setName(nameAns);
 
 
             //Favorite
-            System.out.println("Is this recipe a favorite of yours? (y/n)");
-            recipe.setFavorite(sce.nextLine());
+            System.out.println("*************************************************************************************************");
+            System.out.println("***                                       INSTRUCTIONS                                        ***");
+            System.out.println("***                                                                                           ***");
+            System.out.println("***           Is this recipe a favorite of yours? Type 'y' for yes and 'n' for no.            ***");
+            System.out.println("***                                                                                           ***");
+            System.out.println("*************************************************************************************************");
+            System.out.printf(" >> Type your input here: ");
+            String favAns = sce.nextLine();
+            if (favAns.equals("x")){
+                System.exit(0);
+            }
+            recipe.setFavorite(favAns);
             
             //Cagtegory
             /* System.out.println("Is this meal a breakfast, lunch, or dinner?");
             recipe.setCat(sce.nextLine()); */
-    
 
             // Recipe Description
-            System.out.println("Please enter a description.");
-            if (sce.nextLine().equals("x")){
+            System.out.println("*************************************************************************************************");
+            System.out.println("***                                       INSTRUCTIONS                                        ***");
+            System.out.println("***                                                                                           ***");
+            System.out.println("***                                Please enter a description.                                ***");
+            System.out.println("***                                                                                           ***");
+            System.out.println("*************************************************************************************************");
+            System.out.printf(" >> Type your input here: ");
+            String descAns = sce.nextLine();
+            if (descAns.equals("x")){
                 System.exit(0);
             }
-            recipe.setDescription(sce.nextLine());
+            recipe.setDescription(descAns);
 
             // Recipe ingredients
             boolean ingredient_list_not_done = true; 
@@ -207,15 +281,33 @@ public class Run{
             while (ingredient_list_not_done) {
                 String command = "";
                 if (recipe.ingredient_list.size()==0) {
-                    System.out.println("What ingredients would you like to add?");
+                    System.out.println("*************************************************************************************************");
+                    System.out.println("***                                       INSTRUCTIONS                                        ***");
+                    System.out.println("***                                                                                           ***");
+                    System.out.println("***                          What ingredients would you like to add?                          ***");
+                    System.out.println("***                                                                                           ***");
+                    System.out.println("*************************************************************************************************");
+                    System.out.printf(" >> Type your input here: ");
                     String ingredient = sce.nextLine();
                     recipe.ingredient_list.add(ingredient);
                 }
                 else {
-                    System.out.println("Would you like to add more ingredients? Type 'y' for yes and 'n' for no.");
+                    System.out.println("*************************************************************************************************");
+                    System.out.println("***                                       INSTRUCTIONS                                        ***");
+                    System.out.println("***                                                                                           ***");
+                    System.out.println("***         Would you like to add more ingredients? Type 'y' for yes and 'n' for no.          ***");
+                    System.out.println("***                                                                                           ***");
+                    System.out.println("*************************************************************************************************");
+                    System.out.printf(" >> Type your input here: ");
                     command = invalidInput(sce.nextLine(), "y", "n", "", "('y' for yes or 'n' for no)");
                     if (command.equals("y")) {
-                        System.out.println("What ingredients would you like to add ");
+                        System.out.println("*************************************************************************************************");
+                        System.out.println("***                                       INSTRUCTIONS                                        ***");
+                        System.out.println("***                                                                                           ***");
+                        System.out.println("***                          What ingredients would you like to add?                          ***");
+                        System.out.println("***                                                                                           ***");
+                        System.out.println("*************************************************************************************************");
+                        System.out.printf(" >> Type your input here: ");
                         String ingredient = sce.nextLine();
                         recipe.ingredient_list.add(ingredient);
                     }
@@ -231,15 +323,33 @@ public class Run{
             while (instruction_list_not_done) {
                 String command = "";
                 if (recipe.instructions.size()==0) {
-                    System.out.println("What is the first step in the instructions?");
+                    System.out.println("*************************************************************************************************");
+                    System.out.println("***                                       INSTRUCTIONS                                        ***");
+                    System.out.println("***                                                                                           ***");
+                    System.out.println("***                        What is the first step in the instructions?                        ***");
+                    System.out.println("***                                                                                           ***");
+                    System.out.println("*************************************************************************************************");
+                    System.out.printf(" >> Type your input here: ");
                     String instruction = sce.nextLine();
                     recipe.instructions.add(instruction);
                 }
                 else {
-                    System.out.println("Would you like to add more steps? Type 'y' for yes and 'n' for no.");
+                    System.out.println("*************************************************************************************************");
+                    System.out.println("***                                       INSTRUCTIONS                                        ***");
+                    System.out.println("***                                                                                           ***");
+                    System.out.println("***             Would you like to add more steps? Type 'y' for yes and 'n' for no.            ***");
+                    System.out.println("***                                                                                           ***");
+                    System.out.println("*************************************************************************************************");
+                    System.out.printf(" >> Type your input here: ");
                     command = invalidInput(sce.nextLine(), "y", "n", "", "('y' for yes or 'n' for no)");
                     if (command.equals("y")) {
-                        System.out.println("What is the next step?");
+                        System.out.println("*************************************************************************************************");
+                        System.out.println("***                                       INSTRUCTIONS                                        ***");
+                        System.out.println("***                                                                                           ***");
+                        System.out.println("***                                  What is the next step?                                   ***");
+                        System.out.println("***                                                                                           ***");
+                        System.out.println("*************************************************************************************************");
+                        System.out.printf(" >> Type your input here: ");
                         String instruction = sce.nextLine();
                         recipe.instructions.add(instruction);
                     }
@@ -301,16 +411,20 @@ public class Run{
             }
             recipeWriter.close();
         } catch (IOException e) {
-            System.out.println("An error occurred.");
+            System.out.println("*************************************************************************************************");
+            System.out.println("***                                           ERROR!                                          ***");
+            System.out.println("***                                                                                           ***");
+            System.out.println("***                                   Something went wrong.                                   ***");
+            System.out.println("***                                                                                           ***");
+            System.out.println("*************************************************************************************************");
             e.printStackTrace();
         }
-        return recipe.name; 
-
+        return recipe.name;
     }
 
     public static String byName(ArrayList<String> recipes) {
         Scanner sc = new Scanner(System.in);
-        System.out.println("search for a recipe by name :) : ");
+        System.out.print("Search for a recipe by name: ");
         String input = sc.nextLine().toLowerCase();
         for (String recipe : recipes) {
             if (recipe.toLowerCase().contains(input)) {
@@ -327,6 +441,15 @@ public class Run{
     } */
 
     public static ArrayList<String> byFav(ArrayList<String> recipes){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("*************************************************************************************************");
+        System.out.println("***                                       INSTRUCTIONS                                        ***");
+        System.out.println("***                                                                                           ***");
+        System.out.println("***                              Search for a recipe by favorites:                            ***");
+        System.out.println("***                                                                                           ***");
+        System.out.println("*************************************************************************************************");
+        System.out.printf(" >> Type your input here: ");
+        String input = sc.nextLine().toLowerCase();
         ArrayList<String> favorites = new ArrayList<>();
         int counter = 0;
         while (counter < recipes.size()) {
@@ -349,7 +472,12 @@ public class Run{
                 counter++;
                 scanner.close();
             } catch (FileNotFoundException e) {
-                System.out.println("An error occurred.");
+                System.out.println("*************************************************************************************************");
+                System.out.println("***                                           ERROR!                                          ***");
+                System.out.println("***                                                                                           ***");
+                System.out.println("***                                   Something went wrong.                                   ***");
+                System.out.println("***                                                                                           ***");
+                System.out.println("*************************************************************************************************");
                 e.printStackTrace();
             }
         }
@@ -357,12 +485,23 @@ public class Run{
     }
 
     public static String browseAll(ArrayList<String> recipes) {
-        System.out.println("Here are all of our recipes. Please select by number. :)");
+        System.out.println("*************************************************************************************************");
+        System.out.println("***                                       INSTRUCTIONS                                        ***");
+        System.out.println("***                                                                                           ***");
+        System.out.println("***                 Here are all of our recipes. Please select by number. :)                  ***");
+        System.out.println("***                                                                                           ***");
+        System.out.println("***-------------------------------------------------------------------------------------------***");
         for (int i = 0; i < recipes.size(); i++) {
-            System.out.println(i + " ." + recipes.get(i));
+            System.out.println("" + (i + 1) + ". " + recipes.get(i));
         }
         Scanner sc = new Scanner(System.in);
-        System.out.println("select your recipe: ");
+        System.out.println("***-------------------------------------------------------------------------------------------***");
+        System.out.println("***                                       INSTRUCTIONS                                        ***");
+        System.out.println("***                                                                                           ***");
+        System.out.println("***                                    Select your recipe:                                    ***");
+        System.out.println("***                                                                                           ***");
+        System.out.println("*************************************************************************************************");
+        System.out.printf(" >> Type your input here: ");
         int input = sc.nextInt();
         return recipes.get(input);
         
@@ -381,7 +520,12 @@ public class Run{
             }
             scanner.close();
           } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
+            System.out.println("*************************************************************************************************");
+            System.out.println("***                                           ERROR!                                          ***");
+            System.out.println("***                                                                                           ***");
+            System.out.println("***                                   Something went wrong.                                   ***");
+            System.out.println("***                                                                                           ***");
+            System.out.println("*************************************************************************************************");
             e.printStackTrace();
         }
 
@@ -403,7 +547,12 @@ public class Run{
             }
             scanner.close();
           } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
+            System.out.println("*************************************************************************************************");
+            System.out.println("***                                           ERROR!                                          ***");
+            System.out.println("***                                                                                           ***");
+            System.out.println("***                                   Something went wrong.                                   ***");
+            System.out.println("***                                                                                           ***");
+            System.out.println("*************************************************************************************************");
             e.printStackTrace();
         }
 
@@ -448,16 +597,20 @@ public class Run{
         while(j < steps.size()) {
             System.out.println(steps.get(j));
             String step_print;
-            System.out.println("Enter 'n' to see the next step or 'p' to see the previous step.");
+            System.out.println("*************************************************************************************************");
+            System.out.println("***                                       INSTRUCTIONS                                        ***");
+            System.out.println("***                                                                                           ***");
+            System.out.println("***              Enter 'n' to see the next step or 'p' to see the previous step.              ***");
+            System.out.println("***                                                                                           ***");
+            System.out.println("*************************************************************************************************");
+            System.out.printf(" >> Type your input here: ");
             step_print = invalidInput(sce.nextLine(), "n", "p", "", "('n' for next or 'p' for prevous)");
             if(step_print.equals("n")){
                 j++;
             }
             else if(step_print.equals("p")){
                 j--;
-            }     
+            }
         }
     }
-
-
 }
