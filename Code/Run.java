@@ -37,7 +37,7 @@ public class Run{
 
 
         //Invalid input
-        ans = invalidInput(ans, "c", "r", "('c' to create or 'r' to retrieve)");
+        ans = invalidInput(ans, "c", "r", "", "('c' to create or 'r' to retrieve)");
 
         //Create a recipe
         if (ans.equals("c")) {
@@ -66,7 +66,7 @@ public class Run{
             System.out.println("Type 's' to search by name, 'b' to browse all recipes, and 'f' to browse by favorite.");
             String recipeans = sc.nextLine().toLowerCase();
             //Invalid input
-            recipeans = invalidInput(recipeans, "s", "b", "('s' to search or 'b' to browse)");
+            recipeans = invalidInput(recipeans, "s", "b", "f", "('s' to search or 'b' to browse or 'f' by favorite)");
 
             //Search recipe by name
             if (recipeans.equals("s")){
@@ -132,7 +132,7 @@ public class Run{
             String readans = sc.nextLine().toLowerCase();
             
             //Invalid input
-            readans = invalidInput(readans, "a", "s", "('a' to read all at once or 's' to read step-by-step)");
+            readans = invalidInput(readans, "a", "s", "", "('a' to read all at once or 's' to read step-by-step)");
             
             //Read recipe all at once
             if (readans.equals("a")){
@@ -154,9 +154,9 @@ public class Run{
     // ************************************** //
 
     // Helper function for invalid user inputs
-    public static String invalidInput(String invalidString, String option1, String option2, String instructions){
+    public static String invalidInput(String invalidString, String option1, String option2, String option3, String instructions){
         Scanner scf = new Scanner(System.in);
-        while (!invalidString.equals(option1) && !invalidString.equals(option2)){
+        while (!invalidString.equals(option1) && !invalidString.equals(option2) && !invalidString.equals(option3) && !invalidString.equals("")){
             if (invalidString.equals("x")){
                 System.out.println("Exiting program...");
                 System.exit(0);
@@ -213,7 +213,7 @@ public class Run{
                 }
                 else {
                     System.out.println("Would you like to add more ingredients? Type 'y' for yes and 'n' for no.");
-                    command = invalidInput(sce.nextLine(), "y", "n", "('y' for yes or 'n' for no)");
+                    command = invalidInput(sce.nextLine(), "y", "n", "", "('y' for yes or 'n' for no)");
                     if (command.equals("y")) {
                         System.out.println("What ingredients would you like to add ");
                         String ingredient = sce.nextLine();
@@ -237,7 +237,7 @@ public class Run{
                 }
                 else {
                     System.out.println("Would you like to add more steps? Type 'y' for yes and 'n' for no.");
-                    command = invalidInput(sce.nextLine(), "y", "n", "('y' for yes or 'n' for no)");
+                    command = invalidInput(sce.nextLine(), "y", "n", "", "('y' for yes or 'n' for no)");
                     if (command.equals("y")) {
                         System.out.println("What is the next step?");
                         String instruction = sce.nextLine();
@@ -449,7 +449,7 @@ public class Run{
             System.out.println(steps.get(j));
             String step_print;
             System.out.println("Enter 'n' to see the next step or 'p' to see the previous step.");
-            step_print = invalidInput(sce.nextLine(), "n", "p", "('n' for next or 'p' for prevous)");
+            step_print = invalidInput(sce.nextLine(), "n", "p", "", "('n' for next or 'p' for prevous)");
             if(step_print.equals("n")){
                 j++;
             }
