@@ -95,7 +95,7 @@ public class Run{
             if (recipeans.equals("f")){
                 System.out.println("Searching a recipe by favorites...");
                 ArrayList<String> favs = byFav(recipe_names);
-                if (recipe == null) {
+                if (favs == null) {
                     System.out.println("No recipe matches your search :(");
                 } else {
                     System.out.println("Here are your recipes: \n");
@@ -267,7 +267,7 @@ public class Run{
             recipeWriter.write("\n");
 
             //Recipe fav
-            recipeWriter.write("Favorite: ");
+            recipeWriter.write("Favorite:");
             recipeWriter.write("\n");
             recipeWriter.write(recipe.favorite);
             recipeWriter.write("\n");
@@ -327,19 +327,19 @@ public class Run{
     } */
 
     public static ArrayList<String> byFav(ArrayList<String> recipes){
-        Scanner sc = new Scanner(System.in);
-        System.out.println("search for a recipe by favorite: ");
-        String input = sc.nextLine().toLowerCase();
         ArrayList<String> favorites = new ArrayList<>();
         int counter = 0;
         while (counter < recipes.size()) {
             try {
                 File wholerecipe = new File(recipes.get(counter).toString() +  ".txt");
+                System.out.println(recipes.get(counter));
                 Scanner scanner = new Scanner(wholerecipe);
                 while (scanner.hasNextLine()) {
-                    String recipeline = scanner.nextLine();
-                    if (recipeline.equals("Favorite: ")) {
+                    String recipeline = scanner.nextLine().trim();
+                    if (recipeline.equals("Favorite:")) {
+                        System.out.println("inside");
                         String favoriteLine = scanner.nextLine();
+                        System.out.println(favoriteLine);
                         if (favoriteLine.equals("y")) {
                             favorites.add(recipes.get(counter));
                         }
