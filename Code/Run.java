@@ -39,7 +39,10 @@ public class Run{
             scanner.close();
           } catch (FileNotFoundException e) {
             System.out.println("*************************************************************************************************");
-            System.out.println("******                                 An error occurred!                                  ******");
+            System.out.println("***                                           ERROR!                                          ***");
+            System.out.println("***                                                                                           ***");
+            System.out.println("***                                   Something went wrong.                                   ***");
+            System.out.println("***                                                                                           ***");
             System.out.println("*************************************************************************************************");
             e.printStackTrace();
         }
@@ -67,12 +70,15 @@ public class Run{
                 recipeWriter.close();
             } catch (IOException e) {
                 System.out.println("*************************************************************************************************");
-                System.out.println("******                                 An error occurred!                                  ******");
+                System.out.println("***                                           ERROR!                                          ***");
+                System.out.println("***                                                                                           ***");
+                System.out.println("***                                   Something went wrong.                                   ***");
+                System.out.println("***                                                                                           ***");
                 System.out.println("*************************************************************************************************");
                 e.printStackTrace();
             }
             System.out.println("*************************************************************************************************");
-            System.out.println("***                                          Exiting!                                         ***");
+            System.out.println("***                                          EXITING!                                         ***");
             System.out.println("***                                                                                           ***");
             System.out.println("***      Please run the program again to either create another recipe, or browse recipes.     ***");
             System.out.println("***                                                                                           ***");
@@ -100,7 +106,7 @@ public class Run{
                 if (recipe == null) {
                     System.out.println("No recipe matches your search :(");
                     System.out.println("*************************************************************************************************");
-                    System.out.println("***                                          Exiting!                                         ***");
+                    System.out.println("***                                          EXITING!                                         ***");
                     System.out.println("***                                                                                           ***");
                     System.out.println("***      Please run the program again to either create a recipe, or browse another recipe.    ***");
                     System.out.println("***                                                                                           ***");
@@ -182,7 +188,7 @@ public class Run{
         while (!invalidString.equals(option1) && !invalidString.equals(option2) && !invalidString.equals(option3) && !invalidString.equals("")){
             if (invalidString.equals("x")){
                 System.out.println("*************************************************************************************************");
-                System.out.println("***                                          Exiting!                                         ***");
+                System.out.println("***                                          EXITING!                                         ***");
                 System.out.println("***                                                                                           ***");
                 System.out.println("***         Please run the program again to either create a recipe, or browse recipes.        ***");
                 System.out.println("***                                                                                           ***");
@@ -190,7 +196,7 @@ public class Run{
                 System.exit(0);
             }
             System.out.println("*************************************************************************************************");
-            System.out.println("***                                           Error!                                          ***");
+            System.out.println("***                                           ERROR!                                          ***");
             System.out.println("***                                                                                           ***");
             System.out.println("---> Please enter a valid input" + instructions);
             System.out.println("***                                                                                           ***");
@@ -394,7 +400,10 @@ public class Run{
             recipeWriter.close();
         } catch (IOException e) {
             System.out.println("*************************************************************************************************");
-            System.out.println("******                                 An error occurred!                                  ******");
+            System.out.println("***                                           ERROR!                                          ***");
+            System.out.println("***                                                                                           ***");
+            System.out.println("***                                   Something went wrong.                                   ***");
+            System.out.println("***                                                                                           ***");
             System.out.println("*************************************************************************************************");
             e.printStackTrace();
         }
@@ -449,7 +458,10 @@ public class Run{
                 scanner.close();
             } catch (FileNotFoundException e) {
                 System.out.println("*************************************************************************************************");
-                System.out.println("******                                 An error occurred!                                  ******");
+                System.out.println("***                                           ERROR!                                          ***");
+                System.out.println("***                                                                                           ***");
+                System.out.println("***                                   Something went wrong.                                   ***");
+                System.out.println("***                                                                                           ***");
                 System.out.println("*************************************************************************************************");
                 e.printStackTrace();
             }
@@ -494,7 +506,10 @@ public class Run{
             scanner.close();
           } catch (FileNotFoundException e) {
             System.out.println("*************************************************************************************************");
-            System.out.println("******                                 An error occurred!                                  ******");
+            System.out.println("***                                           ERROR!                                          ***");
+            System.out.println("***                                                                                           ***");
+            System.out.println("***                                   Something went wrong.                                   ***");
+            System.out.println("***                                                                                           ***");
             System.out.println("*************************************************************************************************");
             e.printStackTrace();
         }
@@ -518,7 +533,10 @@ public class Run{
             scanner.close();
           } catch (FileNotFoundException e) {
             System.out.println("*************************************************************************************************");
-            System.out.println("******                                 An error occurred!                                  ******");
+            System.out.println("***                                           ERROR!                                          ***");
+            System.out.println("***                                                                                           ***");
+            System.out.println("***                                   Something went wrong.                                   ***");
+            System.out.println("***                                                                                           ***");
             System.out.println("*************************************************************************************************");
             e.printStackTrace();
         }
@@ -577,7 +595,7 @@ public class Run{
             }
             else if(step_print.equals("p")){
                 j--;
-            }     
+            }
         }
     }
 }
