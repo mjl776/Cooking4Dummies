@@ -16,6 +16,7 @@ public class Run{
         System.out.println("***                                Welcome to Cooking4Dummies!                                ***");
         System.out.println("***-------------------------------------------------------------------------------------------***");
         System.out.println("***                                       INSTRUCTIONS                                        ***");
+        System.out.println("***                                                                                           ***");
         System.out.println("***                  Type 'c' to create a recipe or 'r' to retrieve a recipe.                 ***");
         System.out.println("***                                                                                           ***");
         System.out.println("***                            (You can type 'x' anytime to exit.)                            ***");
