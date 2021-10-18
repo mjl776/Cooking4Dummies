@@ -1,7 +1,13 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.File; 
+
+// import jdk.internal.shellsupport.doc.resources.javadocformatter;
+
+import java.io.FileWriter;   
+import java.io.File;  
+import java.io.*;  
+import java.lang.String;
 
 public class Run{
     public static void main(String[] args) throws IOException {
@@ -10,31 +16,84 @@ public class Run{
         System.out.println("You can type 'x' anytime to exit.");
         String ans = sc.nextLine().toLowerCase();
 
+        // blank recipe
+        String recipe = null;
+
+        // Read file to get all recipe names
         ArrayList<String> recipe_names = new ArrayList<String>();
+
+        try {
+            File recipenames = new File("RecipeNames.txt");
+            Scanner scanner = new Scanner(recipenames);
+            while (scanner.hasNextLine()) {
+              String recipe_name = scanner.nextLine();
+              recipe_names.add(recipe_name);
+            }
+            scanner.close();
+          } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
+
         //Invalid input
         ans = invalidInput(ans, "c", "r", "('c' to create or 'r' to retrieve)");
 
         //Create a recipe
         if (ans.equals("c")) {
             System.out.println("Let's create a recipe for you...");
-            createRecipe();
+            recipe = createRecipe();
+            recipe_names.add(recipe);
+
+            // Write this to the file for RecipeNames
+            FileWriter recipeWriter = new FileWriter("RecipeNames.txt");
+            try {
+                for (int i = 0; i < recipe_names.size(); i++) {
+                    recipeWriter.write(recipe_names.get(i));
+                    recipeWriter.write("\n");
+                }
+                recipeWriter.close();
+            } catch (IOException e) {
+                System.out.println("An error occurred.");
+                e.printStackTrace();
+            }
+
+
         }
 
         //Retrieve a recipe
         else if (ans.equals("r")){
             System.out.println("Type 's' to search by name, or 'b' to browse all recipes.");
             String recipeans = sc.nextLine().toLowerCase();
-            
             //Invalid input
             recipeans = invalidInput(recipeans, "s", "b", "('s' to search or 'b' to browse)");
 
             //Search recipe by name
             if (recipeans.equals("s")){
                 System.out.println("Searching a recipe by name...");
+                recipe = byName(recipe_names);
+                if (recipe == null) {
+                    System.out.println("No recipe matches your search :(");
+                } else {
+                    // remember to make a toString method for the recipe in your Recipe class
+                    System.out.println("Here is your recipe: \n" + recipe.toString());
+                }
             }
+
+
             //Browse all recipes
             else if (recipeans.equals("b")){
                 System.out.println("Browse all recipes");
+                recipe = browseAll(recipe_names);
+                if (recipe == null) {
+                    System.out.println("That number is not in our catalogue. ");
+                } else {
+                    // remember to make a toString method for the recipe in your Recipe class
+                    System.out.println("Here is your recipe: \n" + recipe.toString());
+                }
+                
+            }
+
             }
             System.out.println("Type 'a' to read a recipe all at once or 's' to read through the recipe step-by-step.");
             String readans = sc.nextLine().toLowerCase();
@@ -45,14 +104,17 @@ public class Run{
             //Read recipe all at once
             if (readans.equals("a")){
                 System.out.println("Reading a recipe all at once...");
+                
+                wholeRecipePrint(recipe.toString() + ".txt");
             }
             //Read recipe step-by-step
             else if (readans.equals("s")){
                 System.out.println("Reading a recipe step-by-step...");
+
+                stepRecipePrint(recipe.toString() + ".txt");
             }
+            sc.close();
         }
-        sc.close();
-    }
 
     // ************************************** //
     // ********** OTHER FUNCTIONS *********** //
@@ -74,13 +136,12 @@ public class Run{
     }
 
     // Create a recipe function
-    public static void createRecipe(){
+    public static String createRecipe() throws IOException {
         Scanner sce = new Scanner(System.in);
         boolean recipe_not_finished = true;
+        Recipe recipe = new Recipe();
 
         while(recipe_not_finished) {
-            Recipe recipe = new Recipe();
-
             // Recipe Name
             System.out.println("Please enter a name for the recipe.");
             if (sce.nextLine().equals("x")){
@@ -144,9 +205,167 @@ public class Run{
                     }
                 }
             }
-            System.out.println(recipe.instructions.get(0));
+
+
             sce.close();
             break;
         }
+
+        System.out.println(recipe.instructions.get(0));
+
+        // write to file
+        try {
+            FileWriter recipeWriter = new FileWriter(recipe.name + ".txt");
+
+            // Recipe name
+            recipeWriter.write("Name:");
+            recipeWriter.write("\n");
+            recipeWriter.write(recipe.name);
+            recipeWriter.write("\n");
+
+            // Description
+            recipeWriter.write("Description:");
+            recipeWriter.write("\n");
+            recipeWriter.write(recipe.description);
+            recipeWriter.write("\n");
+
+            recipeWriter.write("Ingredient List:");
+            recipeWriter.write("\n");
+            for (int i = 0; i < recipe.ingredient_list.size(); i++) {
+                recipeWriter.write(recipe.ingredient_list.get(i));
+                recipeWriter.write("\n");
+            }
+
+            // Instructions 
+            recipeWriter.write("Instructions:");
+            recipeWriter.write("\n");
+            for (int i = 0; i < recipe.instructions.size(); i++){
+                recipeWriter.write("Step " + i + " "+ recipe.instructions.get(i));
+                recipeWriter.write("\n");
+            }
+            recipeWriter.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+        return recipe.name; 
+
     }
+
+    public static String byName(ArrayList<String> recipes) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("search for a recipe by name :) : ");
+        String input = sc.nextLine().toLowerCase();
+        for (String recipe : recipes) {
+            if (recipe.toLowerCase().contains(input)) {
+                return recipe;
+            } 
+        }
+        return null;
+    }
+
+    public static String browseAll(ArrayList<String> recipes) {
+        System.out.println("Here are all of our recipes. Please select by number. :)");
+        for (int i = 0; i < recipes.size(); i++) {
+            System.out.println(i + " ." + recipes.get(i));
+        }
+        Scanner sc = new Scanner(System.in);
+        System.out.println("select your recipe: ");
+        int input = sc.nextInt();
+        return recipes.get(input);
+        
+    }
+
+    //Print Recipe all at once
+    public static void wholeRecipePrint(String recipe_file){
+        ArrayList<String> whole_recipe = new ArrayList<String>();
+
+        try {
+            File wholerecipe = new File(recipe_file);
+            Scanner scanner = new Scanner(wholerecipe);
+            while (scanner.hasNextLine()) {
+              String recipeline = scanner.nextLine();
+              whole_recipe.add(recipeline);
+            }
+            scanner.close();
+          } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
+        for (int i = 0; i < whole_recipe.size(); i++) {
+            System.out.println(whole_recipe.get(i));
+        }
+    }
+
+    //Print recipe step by step
+    public static void stepRecipePrint(String recipe_file) throws IOException {
+        ArrayList<String> whole_recipe = new ArrayList<String>();
+
+        try {
+            File wholerecipe = new File(recipe_file);
+            Scanner scanner = new Scanner(wholerecipe);
+            while (scanner.hasNextLine()) {
+              String recipeline = scanner.nextLine();
+              whole_recipe.add(recipeline);
+            }
+            scanner.close();
+          } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
+        String dish = "";
+        for (int i = 0; i < 2; i++) {
+            dish = dish + whole_recipe.get(i) + " ";
+        }
+
+        int iterate = 2;
+        String description = whole_recipe.get(iterate) + " ";
+        for (int i = (iterate+1); i < whole_recipe.size(); i++) {
+            if ((whole_recipe.get(i)).contains(":")){
+                iterate = i;
+                break;
+            }
+            else{
+                description = description + whole_recipe.get(i) + " ";
+            }
+        }
+
+        String ingredients = whole_recipe.get(iterate) + "\n";
+        for (int i = (iterate+1); i < whole_recipe.size(); i++) {
+            if ((whole_recipe.get(i)).contains(":")){
+                iterate = i;
+                break;
+            }
+            else{
+                ingredients = ingredients + whole_recipe.get(i) + "\n";
+            }
+        }
+
+        ArrayList<String> steps = new ArrayList<String>();
+        steps.add(dish);
+        steps.add(description);
+        steps.add(ingredients);
+        for (int i = (iterate+1); i < whole_recipe.size(); i++) {
+            steps.add(whole_recipe.get(i));
+        }
+
+        Scanner sce = new Scanner(System.in);
+        int j = 0;
+        while(j < steps.size()) {
+            System.out.println(steps.get(j));
+            String step_print;
+            System.out.println("Enter 'n' to see the next step or 'p' to see the previous step.");
+            step_print = invalidInput(sce.nextLine(), "n", "p", "('n' for next or 'p' for prevous)");
+            if(step_print.equals("n")){
+                j++;
+            }
+            else if(step_print.equals("p")){
+                j--;
+            }     
+        }
+    }
+
+
 }

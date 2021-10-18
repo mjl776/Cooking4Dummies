@@ -1,0 +1,12 @@
+Name:
+Doritos 
+Description:
+Flavored Chips 
+Ingredient List:
+Chips
+Spice
+Hot Sauce
+Instructions:
+Step 0 Get Chips
+Step 1 Get Sauce
+Step 2 Mix with powder, sauce and chips 
