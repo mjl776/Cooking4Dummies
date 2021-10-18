@@ -63,10 +63,10 @@ public class Run{
 
         //Retrieve a recipe
         else if (ans.equals("r")){
-            System.out.println("Type 's' to search by name, 'b' to browse all recipes, and 'f' to browse by favorite.");
+            System.out.println("Type 's' to search by name, 'b' to browse all recipes, and 'f' to browse by favorites.");
             String recipeans = sc.nextLine().toLowerCase();
             //Invalid input
-            recipeans = invalidInput(recipeans, "s", "b", "f", "('s' to search or 'b' to browse or 'f' by favorite)");
+            recipeans = invalidInput(recipeans, "s", "b", "f", "('s' to search or 'b' to browse all or 'f' to browse by favorites)");
 
             //Search recipe by name
             if (recipeans.equals("s")){
@@ -362,7 +362,7 @@ public class Run{
             System.out.println(i + " ." + recipes.get(i));
         }
         Scanner sc = new Scanner(System.in);
-        System.out.println("select your recipe: ");
+        System.out.println("Select your recipe: ");
         int input = sc.nextInt();
         return recipes.get(input);
         
@@ -458,6 +458,4 @@ public class Run{
             }     
         }
     }
-
-
 }
