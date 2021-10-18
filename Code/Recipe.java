@@ -38,7 +38,7 @@ public class Recipe {
         return favorite;
     }
 
-    public void setFavorite (String newFavorite) {
+    public void setFavorite(String newFavorite) {
         this.favorite = newFavorite;
     }
 
