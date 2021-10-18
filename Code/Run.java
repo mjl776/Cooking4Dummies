@@ -63,7 +63,7 @@ public class Run{
 
         //Retrieve a recipe
         else if (ans.equals("r")){
-            System.out.println("Type 's' to search by name, or 'b' to browse all recipes.");
+            System.out.println("Type 's' to search by name, 'b' to browse all recipes, and 'f' to browse by favorite.");
             String recipeans = sc.nextLine().toLowerCase();
             //Invalid input
             recipeans = invalidInput(recipeans, "s", "b", "('s' to search or 'b' to browse)");
@@ -75,12 +75,35 @@ public class Run{
                 if (recipe == null) {
                     System.out.println("No recipe matches your search :(");
                 } else {
-                    // remember to make a toString method for the recipe in your Recipe class
+                    
                     System.out.println("Here is your recipe: \n" + recipe.toString());
                 }
             }
 
+            //search by cat
+            /* if (recipeans.equals("c")){
+                System.out.println("Searching a recipe by category...");
+                recipe = byCat(recipe_names);
+                if (recipe == null) {
+                    System.out.println("No recipe matches your search :(");
+                } else {
+                    System.out.println("Here are your recipe: \n" + recipe.toString());
+                }
+            } */
 
+            //search by fav
+            if (recipeans.equals("f")){
+                System.out.println("Searching a recipe by favorites...");
+                ArrayList<String> favs = byFav(recipe_names);
+                if (recipe == null) {
+                    System.out.println("No recipe matches your search :(");
+                } else {
+                    System.out.println("Here are your recipes: \n");
+                    for (int i = 0; i < favs.size(); i++) {
+                        System.out.println(favs.get(i));
+                    }
+                } 
+            }
             //Browse all recipes
             else if (recipeans.equals("b")){
                 System.out.println("Browse all recipes");
@@ -91,8 +114,18 @@ public class Run{
                     // remember to make a toString method for the recipe in your Recipe class
                     System.out.println("Here is your recipe: \n" + recipe.toString());
                 }
-                
+
             }
+            //Browse by cat
+            // else if (recipeans.equals("c")){
+                
+         //   }
+
+            //Browse by fav
+            else if (recipeans.equals("f")){
+
+            }
+
 
             }
             System.out.println("Type 'a' to read a recipe all at once or 's' to read through the recipe step-by-step.");
@@ -148,6 +181,16 @@ public class Run{
                 System.exit(0);
             }
             recipe.setName(sce.nextLine());
+
+
+            //Favorite
+            System.out.println("Is this recipe a favorite of yours? (y/n)");
+            recipe.setFavorite(sce.nextLine());
+            
+            //Cagtegory
+            /* System.out.println("Is this meal a breakfast, lunch, or dinner?");
+            recipe.setCat(sce.nextLine()); */
+    
 
             // Recipe Description
             System.out.println("Please enter a description.");
@@ -223,6 +266,19 @@ public class Run{
             recipeWriter.write(recipe.name);
             recipeWriter.write("\n");
 
+            //Recipe fav
+            recipeWriter.write("Favorite: ");
+            recipeWriter.write("\n");
+            recipeWriter.write(recipe.favorite);
+            recipeWriter.write("\n");
+           
+           
+            //Recipe cat
+           /*  recipeWriter.write("Category: ");
+            recipeWriter.write("\n");
+            recipeWriter.write(recipe.cat);
+            recipeWriter.write("\n"); */
+
             // Description
             recipeWriter.write("Description:");
             recipeWriter.write("\n");
@@ -262,6 +318,42 @@ public class Run{
             } 
         }
         return null;
+    }
+
+    /* public static String byCat(ArrayList<String> recipes){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("search for a recipe by category: ");
+        String input = sc.nextLine().toLowerCase();
+    } */
+
+    public static ArrayList<String> byFav(ArrayList<String> recipes){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("search for a recipe by favorite: ");
+        String input = sc.nextLine().toLowerCase();
+        ArrayList<String> favorites = new ArrayList<>();
+        int counter = 0;
+        while (counter < recipes.size()) {
+            try {
+                File wholerecipe = new File(recipes.get(counter).toString() +  ".txt");
+                Scanner scanner = new Scanner(wholerecipe);
+                while (scanner.hasNextLine()) {
+                    String recipeline = scanner.nextLine();
+                    if (recipeline.equals("Favorite: ")) {
+                        String favoriteLine = scanner.nextLine();
+                        if (favoriteLine.equals("y")) {
+                            favorites.add(recipes.get(counter));
+                        }
+                        break;
+                    }
+                }
+                counter++;
+                scanner.close();
+            } catch (FileNotFoundException e) {
+                System.out.println("An error occurred.");
+                e.printStackTrace();
+            }
+        }
+        return favorites;
     }
 
     public static String browseAll(ArrayList<String> recipes) {
