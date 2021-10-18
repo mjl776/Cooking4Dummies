@@ -66,7 +66,7 @@ public class Run{
             System.out.println("Type 's' to search by name, 'b' to browse all recipes, and 'f' to browse by favorite.");
             String recipeans = sc.nextLine().toLowerCase();
             //Invalid input
-            recipeans = invalidInput(recipeans, "s", "b", "('s' to search or 'b' to browse)");
+            recipeans = invalidInput(recipeans, "s", "b", "f", "('s' to search by name, 'f' by favorites, or 'b' to browse all)");
 
             //Search recipe by name
             if (recipeans.equals("s")){
@@ -154,7 +154,7 @@ public class Run{
     // ************************************** //
 
     // Helper function for invalid user inputs
-    public static String invalidInput(String invalidString, String option1, String option2, String instructions){
+    public static String invalidInput(String invalidString, String option1, String option2, String option3,String instructions){
         Scanner scf = new Scanner(System.in);
         while (!invalidString.equals(option1) && !invalidString.equals(option2)){
             if (invalidString.equals("x")){
