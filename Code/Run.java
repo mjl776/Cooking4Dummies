@@ -181,11 +181,21 @@ public class Run{
         Scanner scf = new Scanner(System.in);
         while (!invalidString.equals(option1) && !invalidString.equals(option2) && !invalidString.equals(option3) && !invalidString.equals("")){
             if (invalidString.equals("x")){
-                System.out.println("Exiting program...");
+                System.out.println("*************************************************************************************************");
+                System.out.println("***                                          Exiting!                                         ***");
+                System.out.println("***                                                                                           ***");
+                System.out.println("***         Please run the program again to either create a recipe, or browse recipes.        ***");
+                System.out.println("***                                                                                           ***");
+                System.out.println("*************************************************************************************************");
                 System.exit(0);
             }
-            System.out.println("Please enter a valid input" + instructions);
-            System.out.printf("Type your input here: ");
+            System.out.println("*************************************************************************************************");
+            System.out.println("***                                           Error!                                          ***");
+            System.out.println("***                                                                                           ***");
+            System.out.println("---> Please enter a valid input" + instructions);
+            System.out.println("***                                                                                           ***");
+            System.out.println("*************************************************************************************************");
+            System.out.printf(" >> Type your input here: ");
             String invalidString2 = scf.nextLine().toLowerCase();
             invalidString = invalidString2;
         }
