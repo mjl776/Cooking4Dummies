@@ -37,7 +37,7 @@ public class Run{
 
 
         //Invalid input
-        ans = invalidInput(ans, "c", "r", "('c' to create or 'r' to retrieve)");
+        ans = invalidInput(ans, "c", "r", "", "('c' to create or 'r' to retrieve)");
 
         //Create a recipe
         if (ans.equals("c")) {
@@ -63,10 +63,10 @@ public class Run{
 
         //Retrieve a recipe
         else if (ans.equals("r")){
-            System.out.println("Type 's' to search by name, or 'b' to browse all recipes.");
+            System.out.println("Type 's' to search by name, 'b' to browse all recipes, and 'f' to browse by favorite.");
             String recipeans = sc.nextLine().toLowerCase();
             //Invalid input
-            recipeans = invalidInput(recipeans, "s", "b", "('s' to search or 'b' to browse)");
+            recipeans = invalidInput(recipeans, "s", "b", "f", "('s' to search or 'b' to browse or 'f' by favorite)");
 
             //Search recipe by name
             if (recipeans.equals("s")){
@@ -75,12 +75,35 @@ public class Run{
                 if (recipe == null) {
                     System.out.println("No recipe matches your search :(");
                 } else {
-                    // remember to make a toString method for the recipe in your Recipe class
+                    
                     System.out.println("Here is your recipe: \n" + recipe.toString());
                 }
             }
 
+            //search by cat
+            /* if (recipeans.equals("c")){
+                System.out.println("Searching a recipe by category...");
+                recipe = byCat(recipe_names);
+                if (recipe == null) {
+                    System.out.println("No recipe matches your search :(");
+                } else {
+                    System.out.println("Here are your recipe: \n" + recipe.toString());
+                }
+            } */
 
+            //search by fav
+            if (recipeans.equals("f")){
+                System.out.println("Searching a recipe by favorites...");
+                ArrayList<String> favs = byFav(recipe_names);
+                if (favs == null) {
+                    System.out.println("No recipe matches your search :(");
+                } else {
+                    System.out.println("Here are your recipes: \n");
+                    for (int i = 0; i < favs.size(); i++) {
+                        System.out.println(favs.get(i));
+                    }
+                } 
+            }
             //Browse all recipes
             else if (recipeans.equals("b")){
                 System.out.println("Browse all recipes");
@@ -91,15 +114,25 @@ public class Run{
                     // remember to make a toString method for the recipe in your Recipe class
                     System.out.println("Here is your recipe: \n" + recipe.toString());
                 }
-                
+
             }
+            //Browse by cat
+            // else if (recipeans.equals("c")){
+                
+         //   }
+
+            //Browse by fav
+            else if (recipeans.equals("f")){
+
+            }
+
 
             }
             System.out.println("Type 'a' to read a recipe all at once or 's' to read through the recipe step-by-step.");
             String readans = sc.nextLine().toLowerCase();
             
             //Invalid input
-            readans = invalidInput(readans, "a", "s", "('a' to read all at once or 's' to read step-by-step)");
+            readans = invalidInput(readans, "a", "s", "", "('a' to read all at once or 's' to read step-by-step)");
             
             //Read recipe all at once
             if (readans.equals("a")){
@@ -121,9 +154,9 @@ public class Run{
     // ************************************** //
 
     // Helper function for invalid user inputs
-    public static String invalidInput(String invalidString, String option1, String option2, String instructions){
+    public static String invalidInput(String invalidString, String option1, String option2, String option3, String instructions){
         Scanner scf = new Scanner(System.in);
-        while (!invalidString.equals(option1) && !invalidString.equals(option2)){
+        while (!invalidString.equals(option1) && !invalidString.equals(option2) && !invalidString.equals(option3) && !invalidString.equals("")){
             if (invalidString.equals("x")){
                 System.out.println("Exiting program...");
                 System.exit(0);
@@ -144,10 +177,26 @@ public class Run{
         while(recipe_not_finished) {
             // Recipe Name
             System.out.println("Please enter a name for the recipe.");
+            if (sce.nextLine().equals("x")){
+                System.exit(0);
+            }
             recipe.setName(sce.nextLine());
+
+
+            //Favorite
+            System.out.println("Is this recipe a favorite of yours? (y/n)");
+            recipe.setFavorite(sce.nextLine());
+            
+            //Cagtegory
+            /* System.out.println("Is this meal a breakfast, lunch, or dinner?");
+            recipe.setCat(sce.nextLine()); */
+    
 
             // Recipe Description
             System.out.println("Please enter a description.");
+            if (sce.nextLine().equals("x")){
+                System.exit(0);
+            }
             recipe.setDescription(sce.nextLine());
 
             // Recipe ingredients
@@ -164,7 +213,7 @@ public class Run{
                 }
                 else {
                     System.out.println("Would you like to add more ingredients? Type 'y' for yes and 'n' for no.");
-                    command = invalidInput(sce.nextLine(), "y", "n", "('y' for yes or 'n' for no)");
+                    command = invalidInput(sce.nextLine(), "y", "n", "", "('y' for yes or 'n' for no)");
                     if (command.equals("y")) {
                         System.out.println("What ingredients would you like to add ");
                         String ingredient = sce.nextLine();
@@ -188,7 +237,7 @@ public class Run{
                 }
                 else {
                     System.out.println("Would you like to add more steps? Type 'y' for yes and 'n' for no.");
-                    command = invalidInput(sce.nextLine(), "y", "n", "('y' for yes or 'n' for no)");
+                    command = invalidInput(sce.nextLine(), "y", "n", "", "('y' for yes or 'n' for no)");
                     if (command.equals("y")) {
                         System.out.println("What is the next step?");
                         String instruction = sce.nextLine();
@@ -216,6 +265,19 @@ public class Run{
             recipeWriter.write("\n");
             recipeWriter.write(recipe.name);
             recipeWriter.write("\n");
+
+            //Recipe fav
+            recipeWriter.write("Favorite:");
+            recipeWriter.write("\n");
+            recipeWriter.write(recipe.favorite);
+            recipeWriter.write("\n");
+           
+           
+            //Recipe cat
+           /*  recipeWriter.write("Category: ");
+            recipeWriter.write("\n");
+            recipeWriter.write(recipe.cat);
+            recipeWriter.write("\n"); */
 
             // Description
             recipeWriter.write("Description:");
@@ -256,6 +318,42 @@ public class Run{
             } 
         }
         return null;
+    }
+
+    /* public static String byCat(ArrayList<String> recipes){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("search for a recipe by category: ");
+        String input = sc.nextLine().toLowerCase();
+    } */
+
+    public static ArrayList<String> byFav(ArrayList<String> recipes){
+        ArrayList<String> favorites = new ArrayList<>();
+        int counter = 0;
+        while (counter < recipes.size()) {
+            try {
+                File wholerecipe = new File(recipes.get(counter).toString() +  ".txt");
+                System.out.println(recipes.get(counter));
+                Scanner scanner = new Scanner(wholerecipe);
+                while (scanner.hasNextLine()) {
+                    String recipeline = scanner.nextLine().trim();
+                    if (recipeline.equals("Favorite:")) {
+                        System.out.println("inside");
+                        String favoriteLine = scanner.nextLine();
+                        System.out.println(favoriteLine);
+                        if (favoriteLine.equals("y")) {
+                            favorites.add(recipes.get(counter));
+                        }
+                        break;
+                    }
+                }
+                counter++;
+                scanner.close();
+            } catch (FileNotFoundException e) {
+                System.out.println("An error occurred.");
+                e.printStackTrace();
+            }
+        }
+        return favorites;
     }
 
     public static String browseAll(ArrayList<String> recipes) {
@@ -351,7 +449,7 @@ public class Run{
             System.out.println(steps.get(j));
             String step_print;
             System.out.println("Enter 'n' to see the next step or 'p' to see the previous step.");
-            step_print = invalidInput(sce.nextLine(), "n", "p", "('n' for next or 'p' for prevous)");
+            step_print = invalidInput(sce.nextLine(), "n", "p", "", "('n' for next or 'p' for prevous)");
             if(step_print.equals("n")){
                 j++;
             }

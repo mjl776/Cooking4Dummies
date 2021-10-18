@@ -1,5 +1,7 @@
 Name:
 Doritos 
+Favorite: 
+y
 Description:
 Flavored Chips 
 Ingredient List:
