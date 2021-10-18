@@ -66,7 +66,7 @@ public class Run{
             System.out.println("Type 's' to search by name, 'b' to browse all recipes, and 'f' to browse by favorite.");
             String recipeans = sc.nextLine().toLowerCase();
             //Invalid input
-            recipeans = invalidInput(recipeans, "s", "b", "f", "('s' to search or 'b' to browse or 'f' by favorite)");
+            recipeans = invalidInput(recipeans, "s", "b", "f", "('s' to search by name, 'f' by favoritesor 'b' to browse)");
 
             //Search recipe by name
             if (recipeans.equals("s")){
@@ -154,9 +154,9 @@ public class Run{
     // ************************************** //
 
     // Helper function for invalid user inputs
-    public static String invalidInput(String invalidString, String option1, String option2, String option3, String instructions){
+    public static String invalidInput(String invalidString, String option1, String option2, String option3,String instructions){
         Scanner scf = new Scanner(System.in);
-        while (!invalidString.equals(option1) && !invalidString.equals(option2) && !invalidString.equals(option3) && !invalidString.equals("")){
+        while (!invalidString.equals(option1) && !invalidString.equals(option2)){
             if (invalidString.equals("x")){
                 System.out.println("Exiting program...");
                 System.exit(0);
@@ -177,9 +177,6 @@ public class Run{
         while(recipe_not_finished) {
             // Recipe Name
             System.out.println("Please enter a name for the recipe.");
-            if (sce.nextLine().equals("x")){
-                System.exit(0);
-            }
             recipe.setName(sce.nextLine());
 
 
@@ -194,9 +191,6 @@ public class Run{
 
             // Recipe Description
             System.out.println("Please enter a description.");
-            if (sce.nextLine().equals("x")){
-                System.exit(0);
-            }
             recipe.setDescription(sce.nextLine());
 
             // Recipe ingredients
@@ -449,7 +443,7 @@ public class Run{
             System.out.println(steps.get(j));
             String step_print;
             System.out.println("Enter 'n' to see the next step or 'p' to see the previous step.");
-            step_print = invalidInput(sce.nextLine(), "n", "p", "", "('n' for next or 'p' for prevous)");
+            step_print = invalidInput(sce.nextLine(), "n", "p", "('n' for next or 'p' for prevous)");
             if(step_print.equals("n")){
                 j++;
             }
