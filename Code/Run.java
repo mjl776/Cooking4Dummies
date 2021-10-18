@@ -424,6 +424,17 @@ public class Run{
             }
         }
 
+        String favorite = whole_recipe.get(iterate) + " ";
+        for (int i = (iterate+1); i < whole_recipe.size(); i++) {
+            if ((whole_recipe.get(i)).contains(":")){
+                iterate = i;
+                break;
+            }
+            else{
+                favorite = favorite + whole_recipe.get(i) + "\n";
+            }
+        }
+
         String ingredients = whole_recipe.get(iterate) + "\n";
         for (int i = (iterate+1); i < whole_recipe.size(); i++) {
             if ((whole_recipe.get(i)).contains(":")){
@@ -436,9 +447,6 @@ public class Run{
         }
 
         ArrayList<String> steps = new ArrayList<String>();
-        steps.add(dish);
-        steps.add(description);
-        steps.add(ingredients);
         for (int i = (iterate+1); i < whole_recipe.size(); i++) {
             steps.add(whole_recipe.get(i));
         }
