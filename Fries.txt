@@ -1,0 +1,12 @@
+Name:
+Fries
+Favorite:
+n
+Description:
+Fried potatoes
+Ingredient List:
+Potatoes
+Oil
+Instructions:
+Step 0 Cut potatoes into strips
+Step 1 Fry potatoes in oil
