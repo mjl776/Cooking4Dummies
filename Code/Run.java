@@ -202,7 +202,7 @@ public class Run{
                 System.out.println("*************************************************************************************************");
                 System.out.println("***                     Reading a recipe all at once...                                       ***");
                 System.out.println("***-------------------------------------------------------------------------------------------***");
-                wholeRecipePrint("--> " + recipe.toString() + ".txt");
+                wholeRecipePrint(recipe.toString() + ".txt");
                 System.out.println("***                                                                                           ***");
                 System.out.println("*************************************************************************************************");
             }
