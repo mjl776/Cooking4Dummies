@@ -138,13 +138,26 @@ public class Run{
 
             //search by fav
             if (recipeans.equals("f")){
-                System.out.println("Searching a recipe by favorites...");
+                System.out.println("*************************************************************************************************");
+                System.out.println("***                             Searching a recipe by favorites...                            ***");
+                System.out.println("***-------------------------------------------------------------------------------------------***");
                 String favs = byFav(recipe_names);
                 if (favs == null) {
-                    System.out.println("No recipe matches your search :(");
+                    System.out.println("*************************************************************************************************");
+                    System.out.println("***                              No recipe matches your search.                               ***");
+                    System.out.println("***                                          EXITING!                                         ***");
+                    System.out.println("***                                                                                           ***");
+                    System.out.println("***      Please run the program again to either create a recipe, or browse another recipe.    ***");
+                    System.out.println("***                                                                                           ***");
+                    System.out.println("*************************************************************************************************");
+                    System.exit(0);
                 }  
                 else {
-                    System.out.println(favs);
+                    System.out.println("*************************************************************************************************");
+                    System.out.println("***                                                                                           ***");
+                    System.out.println("                                  You selected: " + favs);
+                    System.out.println("***                                                                                           ***");
+                    System.out.println("***-------------------------------------------------------------------------------------------***");
                     recipe = favs;
                 }
             }
@@ -152,19 +165,32 @@ public class Run{
             else if (recipeans.equals("b")){
                 recipe = browseAll(recipe_names);
                 if (recipe == null) {
-                    System.out.println("That number is not in our catalogue. ");
+                    System.out.println("*************************************************************************************************");
+                    System.out.println("***                           That number is not in our catalogue.                            ***");
+                    System.out.println("***                                          EXITING!                                         ***");
+                    System.out.println("***                                                                                           ***");
+                    System.out.println("***      Please run the program again to either create a recipe, or browse another recipe.    ***");
+                    System.out.println("***                                                                                           ***");
+                    System.out.println("*************************************************************************************************");
+                    System.exit(0);
                 } else {
                     // remember to make a toString method for the recipe in your Recipe class
-                    System.out.println("Here is your recipe: \n" + recipe.toString());
+                    System.out.println("*************************************************************************************************");
+                    System.out.println("***                                                                                           ***");
+                    System.out.println("                                  You selected: " + recipe.toString());
+                    System.out.println("***                                                                                           ***");
+                    System.out.println("***-------------------------------------------------------------------------------------------***");
                 }
 
             }
 
             }
+            System.out.println("***                                       INSTRUCTIONS                                        ***");
+            System.out.println("***                                                                                           ***");
             System.out.println("***   Type 'a' to read a recipe all at once or 's' to read through the recipe step-by-step.   ***");
-            System.out.println("***-------------------------------------------------------------------------------------------***");
-            System.out.println();
-            System.out.printf("Type your input here: ");
+            System.out.println("***                                                                                           ***");
+            System.out.println("*************************************************************************************************");
+            System.out.printf(" >> Type your input here: ");
             String readans = sc.nextLine().toLowerCase();
             
             //Invalid input
@@ -176,7 +202,9 @@ public class Run{
                 System.out.println("*************************************************************************************************");
                 System.out.println("***                     Reading a recipe all at once...                                       ***");
                 System.out.println("***-------------------------------------------------------------------------------------------***");
-                wholeRecipePrint(recipe.toString() + ".txt");
+                wholeRecipePrint("--> " + recipe.toString() + ".txt");
+                System.out.println("***                                                                                           ***");
+                System.out.println("*************************************************************************************************");
             }
             //Read recipe step-by-step
             else if (readans.equals("s")){
@@ -474,7 +502,6 @@ public class Run{
             System.out.println("" + (i + 1) + ". " + favorites.get(i));
         }
 
-        System.out.println("*************************************************************************************************");
         System.out.println("***                                       INSTRUCTIONS                                        ***");
         System.out.println("***                                                                                           ***");
         System.out.println("***                             Browse favorite recipe by number:                             ***");
@@ -505,8 +532,7 @@ public class Run{
         System.out.println("*************************************************************************************************");
         System.out.printf(" >> Type your input here: ");
         int input = sc.nextInt();
-        return recipes.get(input);
-        
+        return recipes.get(input - 1);
     }
 
     //Print Recipe all at once
