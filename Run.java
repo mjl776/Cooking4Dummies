@@ -103,10 +103,6 @@ public class Run{
 
             //Search recipe by name
             if (recipeans.equals("s")){
-                System.out.println("*************************************************************************************************");
-                System.out.println("***                         Searching a recipe by name...                                     ***");
-                System.out.println("***-------------------------------------------------------------------------------------------***");
-                System.out.println();
                 recipe = byName(recipe_names);
                 if (recipe == null) {
                     System.out.println("*************************************************************************************************");
@@ -451,7 +447,13 @@ public class Run{
 
     public static String byName(ArrayList<String> recipes) {
         Scanner sc = new Scanner(System.in);
-        System.out.print("Search for a recipe by name: ");
+        System.out.println("*************************************************************************************************");
+        System.out.println("***                                       INSTRUCTIONS                                        ***");
+        System.out.println("***                                                                                           ***");
+        System.out.println("***                            Type to search for a recipe by name.                           ***");
+        System.out.println("***                                                                                           ***");
+        System.out.println("*************************************************************************************************");
+        System.out.printf(" >> Type your input here: ");
         String input = sc.nextLine().toLowerCase();
         for (String recipe : recipes) {
             if (recipe.toLowerCase().contains(input)) {
