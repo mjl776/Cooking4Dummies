@@ -615,12 +615,19 @@ public class Run{
         for (int i = (iterate+1); i < whole_recipe.size(); i++) {
             steps.add(whole_recipe.get(i));
         }
+
         Scanner sce = new Scanner(System.in);
         int j = 0;
-        while(j < steps.size()) {
+        for (int i = 0; i < whole_recipe.size(); i++){
+            String currLine = whole_recipe.get(i).trim();
+            if (currLine.equals("Instructions:")){
+                j = i + 1;
+            }
+        }
+        while(j < whole_recipe.size()) {
             System.out.println();
             System.out.println("*************************************************************************************************");
-            System.out.println("       --> " + steps.get(j));
+            System.out.println("       --> " + whole_recipe.get(j));
             String step_print;
             System.out.println("***-------------------------------------------------------------------------------------------***");
             System.out.println("***                                       INSTRUCTIONS                                        ***");
