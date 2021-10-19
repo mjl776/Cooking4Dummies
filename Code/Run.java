@@ -139,15 +139,14 @@ public class Run{
             //search by fav
             if (recipeans.equals("f")){
                 System.out.println("Searching a recipe by favorites...");
-                ArrayList<String> favs = byFav(recipe_names);
+                String favs = byFav(recipe_names);
                 if (favs == null) {
                     System.out.println("No recipe matches your search :(");
-                } else {
-                    System.out.println("Here are your recipes: \n");
-                    for (int i = 0; i < favs.size(); i++) {
-                        System.out.println(favs.get(i));
-                    }
-                } 
+                }  
+                else {
+                    System.out.println(favs);
+                    recipe = favs;
+                }
             }
             //Browse all recipes
             else if (recipeans.equals("b")){
@@ -440,29 +439,18 @@ public class Run{
         String input = sc.nextLine().toLowerCase();
     } */
 
-    public static ArrayList<String> byFav(ArrayList<String> recipes){
+    public static String byFav(ArrayList<String> recipes){
         Scanner sc = new Scanner(System.in);
-        System.out.println("*************************************************************************************************");
-        System.out.println("***                                       INSTRUCTIONS                                        ***");
-        System.out.println("***                                                                                           ***");
-        System.out.println("***                              Search for a recipe by favorites:                            ***");
-        System.out.println("***                                                                                           ***");
-        System.out.println("*************************************************************************************************");
-        System.out.printf(" >> Type your input here: ");
-        String input = sc.nextLine().toLowerCase();
         ArrayList<String> favorites = new ArrayList<>();
         int counter = 0;
         while (counter < recipes.size()) {
             try {
                 File wholerecipe = new File(recipes.get(counter).toString() +  ".txt");
-                System.out.println(recipes.get(counter));
                 Scanner scanner = new Scanner(wholerecipe);
                 while (scanner.hasNextLine()) {
                     String recipeline = scanner.nextLine().trim();
                     if (recipeline.equals("Favorite:")) {
-                        System.out.println("inside");
                         String favoriteLine = scanner.nextLine();
-                        System.out.println(favoriteLine);
                         if (favoriteLine.equals("y")) {
                             favorites.add(recipes.get(counter));
                         }
@@ -481,7 +469,21 @@ public class Run{
                 e.printStackTrace();
             }
         }
-        return favorites;
+
+        for (int i = 0; i < favorites.size(); i++) {
+            System.out.println("" + (i + 1) + ". " + favorites.get(i));
+        }
+
+        System.out.println("*************************************************************************************************");
+        System.out.println("***                                       INSTRUCTIONS                                        ***");
+        System.out.println("***                                                                                           ***");
+        System.out.println("***                             Browse favorite recipe by number:                             ***");
+        System.out.println("***                                                                                           ***");
+        System.out.println("*************************************************************************************************");
+        System.out.printf(" >> Type your input here: ");
+        int input = sc.nextInt();
+
+        return favorites.get(input-1);
     }
 
     public static String browseAll(ArrayList<String> recipes) {
